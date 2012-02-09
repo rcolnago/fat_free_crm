@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ndbroadbent/ransack.git
-  revision: 99afe448d59fa02064a4bc4aff3b378647aee157
+  revision: ff199c2fe802528b3803b8ff0d752ccfaf2800d4
   specs:
     ransack (0.6.0)
       actionpack (~> 3.0)
