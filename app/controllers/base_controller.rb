@@ -38,7 +38,10 @@ class BaseController < ApplicationController
       @auto_complete = @auto_complete.last
     end
     session[:auto_complete] = controller_name.to_sym
-    render "shared/auto_complete", :layout => nil
+    respond_to do |format|
+      format.any(:js, :html)   { render "shared/auto_complete", :layout => nil }
+      format.json { render :json => @auto_complete.inject({}){|h,a| h[a.id] = a.name; h } }
+    end
   end
 
   # Common attach handler for all core controllers.
@@ -93,15 +96,13 @@ class BaseController < ApplicationController
   end
 
   def field_group
-    if @tag = Tag.find_by_name(params[:tag].strip) and
-       @field_group = FieldGroup.find_by_tag_id(@tag.id)
-
-      @asset = klass.find_by_id(params[:asset_id]) || klass.new
-
-      render 'fields/group'
-    else
-      render :text => ''
+    if @tag = Tag.find_by_name(params[:tag].strip)
+      if @field_group = FieldGroup.find_by_tag_id_and_klass_name(@tag.id, klass.to_s)
+        @asset = klass.find_by_id(params[:asset_id]) || klass.new
+        render 'fields/group' and return
+      end
     end
+    render :text => ''
   end
 
   private

@@ -114,7 +114,7 @@ module ApplicationHelper
     link_to(t(:edit),
       params[:url] || send(:"edit_#{name}_path", model),
       :remote  => true,
-      :onclick => "this.href += '?previous='+ crm.find_form('edit_#{name}');"
+      :onclick => "this.href = this.href.split('?')[0] + '?previous='+crm.find_form('edit_#{name}');"
     )
   end
 

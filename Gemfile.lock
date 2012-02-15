@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/fatfreecrm/chosen-rails.git
+  revision: 33c92a8554ee14d11b7293eb531371a05c0a0b67
+  specs:
+    chosen-rails (0.9.5)
+      railties (~> 3.0)
+      thor (~> 0.14)
+
+GIT
   remote: git://github.com/ndbroadbent/ransack.git
   revision: ff199c2fe802528b3803b8ff0d752ccfaf2800d4
   specs:
@@ -44,6 +52,10 @@ GEM
     acts_as_commentable (3.0.1)
     acts_as_list (0.1.4)
     addressable (2.2.6)
+    ajax-chosen-rails (0.1.5)
+      chosen-rails
+      railties (~> 3.0)
+      thor (~> 0.14)
     annotate (2.4.1.beta1)
     archive-tar-minitar (0.5.2)
     arel (2.2.1)
@@ -238,9 +250,11 @@ DEPENDENCIES
   acts-as-taggable-on (~> 2.2.1)
   acts_as_commentable (~> 3.0.1)
   acts_as_list (~> 0.1.4)
+  ajax-chosen-rails (>= 0.1.5)
   annotate (~> 2.4.1.beta)
   authlogic (~> 3.1.0)
   awesome_print
+  chosen-rails!
   coffee-rails (>= 3.1.1)
   database_cleaner
   factory_girl
