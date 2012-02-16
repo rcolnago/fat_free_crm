@@ -16,31 +16,20 @@ RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'FatFreeCRM'
   rdoc.options << '--line-numbers'
-  rdoc.rdoc_files.include('README.rdoc')
+  rdoc.rdoc_files.include('README.md')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-#~ load 'rails/tasks/engine.rake'
+APP_RAKEFILE = File.expand_path("../spec/internal/Rakefile", __FILE__)
+load 'rails/tasks/engine.rake'
+
+require 'rubygems/package_task'
+require 'rspec/core/rake_task'
 
 Bundler::GemHelper.install_tasks
+RSpec::Core::RakeTask.new
 
-#~ Rake::Task[:default].clear
-
-namespace :spec do
-  desc "Preparing test env"
-  task :prepare do
-    tmp_env = Rails.env
-    Rails.env = "test"
-    Rake::Task["crm:copy_default_config"].invoke
-    puts "Running initial migrations..."
-    puts "Preparing test database..."
-    Rake::Task["db:schema:load"].invoke
-    Rake::Task["crm:settings:load"].invoke
-    Rails.env = tmp_env
-  end
+spec = eval(File.read('fat_free_crm.gemspec'))
+Gem::PackageTask.new(spec) do |p|
+  p.gem_spec = spec
 end
-
-Rake::Task["spec"].prerequisites.clear
-Rake::Task["spec"].prerequisites.push("spec:prepare")
-task :default => ['spec']
-
