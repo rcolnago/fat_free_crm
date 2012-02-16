@@ -34,4 +34,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_form',         '~> 1.5.2'
   s.add_dependency 'ffaker',              '>= 1.12.0'
   s.add_dependency 'uglifier'
+  s.add_dependency 'paper_trail'
 end
